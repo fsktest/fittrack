@@ -2,12 +2,12 @@ import { View, Text } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const dashboard = () => {
+const Home = () => {
   return (
     <SafeAreaView className="flex-1 bg-white">
-          <Text className="text-black">Dashboard</Text>
-        </SafeAreaView>
+      <Text className="text-black">Home</Text>
+    </SafeAreaView>
   );
 };
 
-export default dashboard;
+export default Home;

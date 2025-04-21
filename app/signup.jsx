@@ -1,13 +1,14 @@
-import { View, Text, SafeAreaView, ScrollView } from "react-native";
+import { View, Text, SafeAreaView, ScrollView, Alert } from "react-native";
 import React, { useState } from "react";
-import FormField from "../components/FormField";
-import CustomButton from "../components/CustomButton";
-import icon from "../../constants/icon";
+import FormField from "./components/FormField";
+import CustomButton from "./components/CustomButton";
+import icon from "../constants/icon";
 import { Link } from "expo-router";
+import { createUserAccount } from "../api/appwrite.api";
 
 const Signup = () => {
   const goals = ["lose_weight", "gain_weight", "maintain_weight"];
-  const genders = ["male", "female", "Other"];
+  const genders = ["Male", "Female", "Other"];
 
   const [step, setStep] = useState(1);
   const [form, setForm] = useState({
@@ -15,15 +16,40 @@ const Signup = () => {
     email: "",
     password: "",
     age: "",
-    gender: "male",
+    gender: "Male",
     height_cm: "",
     weight_kg: "",
     goal: "lose_weight",
   });
 
   const handleSignUp = async () => {
-    // Final submission logic here
-    console.log("Form submitted:", form);
+    if (
+      !form.name ||
+      !form.email ||
+      !form.password ||
+      !form.age ||
+      !form.gender ||
+      !form.height_cm ||
+      !form.weight_kg ||
+      !form.goal
+    )
+      return Alert.alert("Error in Sign UP", "Please fill all the fields");
+    try {
+      const response = await createUserAccount(
+        form.name,
+        form.email,
+        form.password,
+        parseInt(form.age, 10), // Convert to integer
+        form.gender,
+        parseFloat(form.height_cm), // Optional: convert to float if needed
+        parseFloat(form.weight_kg), // Optional: convert to float if needed
+        form.goal
+      );
+      return response;
+    } catch (error) {
+      Alert.alert("Error in Sign UP", error.message);
+      console.log("Error in Sign UP: ", error);
+    }
   };
 
   const renderStepFields = () => {
@@ -71,7 +97,7 @@ const Signup = () => {
               name="age"
               labelStyle="text-white"
               inputStyle="text-white placeholder:text-gray-500"
-              value={form.age.toString()}
+              value={form.age}
               onChangeText={(value) => setForm({ ...form, age: value })}
             />
             <FormField
@@ -90,7 +116,7 @@ const Signup = () => {
               name="height_cm"
               labelStyle="text-white"
               inputStyle="text-white placeholder:text-gray-500"
-              value={form.height_cm.toString()}
+              value={form.height_cm}
               onChangeText={(value) => setForm({ ...form, height_cm: value })}
             />
             <FormField
@@ -99,7 +125,7 @@ const Signup = () => {
               name="weight_kg"
               labelStyle="text-white"
               inputStyle="text-white placeholder:text-gray-500"
-              value={form.weight_kg.toString()}
+              value={form.weight_kg}
               onChangeText={(value) => setForm({ ...form, weight_kg: value })}
             />
           </>
@@ -141,30 +167,45 @@ const Signup = () => {
 
           {/* Navigation Buttons */}
           <View className="flex-row justify-between w-full mt-6 gap-2">
-            {step > 1 && (
-              <CustomButton
-                title="Back"
-                handlepress={() => setStep(step - 1)}
-                containerStyle="w-[48%] bg-gray-700"
-              />
-            )}
-            {step < 3 ? (
-              <CustomButton
-                title="Next"
-                handlepress={() => setStep(step + 1)}
-                containerStyle={
-                  step === 1
-                    ? "w-full bg-gray-700 border"
-                    : "w-[48%] bg-gray-700"
-                }
-              />
-            ) : (
-              <CustomButton
-                title="Sign Up"
-                handlepress={handleSignUp}
-                containerStyle="w-[48%] "
-              />
-            )}
+            <View className="flex-row justify-between w-full mt-6 gap-2">
+              {step === 1 && (
+                <CustomButton
+                  title="Next"
+                  handlepress={() => setStep(step + 1)}
+                  containerStyle="w-full bg-gray-700 border"
+                />
+              )}
+
+              {step === 2 && (
+                <View className="w-full gap-4">
+                  <CustomButton
+                    title="Back"
+                    handlepress={() => setStep(step - 1)}
+                    containerStyle="w-[48%] bg-gray-700"
+                  />
+                  <CustomButton
+                    title="Next"
+                    handlepress={() => setStep(step + 1)}
+                    containerStyle="w-[48%] bg-gray-700"
+                  />
+                </View>
+              )}
+
+              {step === 3 && (
+                <View className="w-full gap-4">
+                  <CustomButton
+                    title="Back"
+                    handlepress={() => setStep(step - 1)}
+                    containerStyle="w-[48%] bg-gray-700"
+                  />
+                  <CustomButton
+                    title="Sign Up"
+                    handlepress={handleSignUp}
+                    containerStyle="w-[48%]"
+                  />
+                </View>
+              )}
+            </View>
           </View>
 
           {/* Footer */}

@@ -22,17 +22,24 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#000000"
       },
-      "package": "com.fsk.fit-track"
+      "package": "com.texpo196.fittrackapp"
     },
     "web": {
       "bundler": "metro",
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["expo-router"],
+    "plugins": [
+      "expo-router",
+      "expo-secure-store"
+    ],
     "extra": {
+      "router": {
+        "origin": false
+      },
       "eas": {
-        "projectId": "67ff556a001093374923"
+        "projectId": "67900d3f-0511-4b40-b925-81f6705fddcd"
       }
-    }
+    },
+    "owner": "texpo196"
   }
 }

@@ -10,7 +10,7 @@ import Filter from "../assets/icons/filter.png";
 import Calendar from "../assets/icons/calendar.png";
 import Chat from "../assets/icons/chat.png";
 import DownArrow from "../assets/icons/down.png";
-import DownArr from "../assets/icons/downArrow.png"
+import DownArr from "../assets/icons/downArrow.png";
 
 export default {
   eyehide,
@@ -25,5 +25,5 @@ export default {
   Calendar,
   Chat,
   DownArrow,
-  DownArr
+  DownArr,
 };
