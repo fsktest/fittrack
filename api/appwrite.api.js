@@ -146,3 +146,80 @@ export const getCurrentUser = async () => {
     return null; // return null explicitly
   }
 };
+
+// export const getAllExercises = async () => {
+//   const limit = 100; // Appwrite allows up to 100 per request
+//   let offset = 0;
+//   let allDocuments = [];
+
+//   try {
+//     while (true) {
+//       const response = await database.listDocuments(
+//         appwriteConf.databaseID,
+//         appwriteConf.exerciseCollectionID,
+//         [
+//           // The third param is for queries
+//           Query.limit(limit),
+//           Query.offset(offset),
+//         ]
+//       );
+
+//       allDocuments = [...allDocuments, ...response.documents];
+
+//       if (response.documents.length < limit) break; // No more data
+//       offset += limit;
+//     }
+
+//     return allDocuments;
+//   } catch (error) {
+//     console.log("Error getting all exercises:", error);
+//   }
+// };
+
+export const getAllExercises = async () => {
+  const limit = 100;
+  let offset = 0;
+  let allDocuments = [];
+
+  try {
+    while (true) {
+      const response = await database.listDocuments(
+        appwriteConf.databaseID,
+        appwriteConf.exerciseCollectionID,
+        [Query.limit(limit), Query.offset(offset)]
+      );
+
+      const exercisesWithImageUrls = await Promise.all(
+        response.documents.map(async (item) => {
+          let imageUrls = [];
+
+          if (item.image_ids && item.image_ids.length > 0) {
+            imageUrls = item.image_ids.map(
+              (id) => storage.getFileView(appwriteConf.bucketID, id).href
+            );
+          }
+
+          return { ...item, imageUrls };
+        })
+      );
+
+      allDocuments = [...allDocuments, ...exercisesWithImageUrls];
+
+      if (response.documents.length < limit) break;
+      offset += limit;
+    }
+
+    return allDocuments;
+  } catch (error) {
+    console.log("Error getting all exercises:", error);
+  }
+};
+
+export const getImageById = async (id) => {
+  try {
+    const response = await storage.getFileView(appwriteConf.bucketID, id);
+    return response;
+  } catch (error) {
+    console.log("Error getting image by ID:", error);
+  }
+};
