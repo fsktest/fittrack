@@ -1,40 +1,54 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import { SplashScreen, Stack, useRouter, useSegments } from "expo-router";
+import { Slot, SplashScreen, Stack, useRouter, useSegments } from "expo-router";
 import "../global.css";
 import { useEffect } from "react";
 import { useFonts } from "expo-font";
 import { Provider, useSelector } from "react-redux";
 import store from "../store/store";
+import { useDispatch } from "react-redux";
+import { account } from "../api/appwrite";
+import { logout, login as setLogin } from "../store/authSlice";
 
 SplashScreen.preventAutoHideAsync();
 
 const AppContent = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const segments = useSegments();
+  const dispatch = useDispatch();
   const router = useRouter();
 
   useEffect(() => {
-    const isAuthGroup = segments.includes("(auth)") || segments[0] === "index";
+    // ✅ Restore session from Appwrite if present
+    const checkSession = async () => {
+      try {
+        const session = await account.get();
+        console.log("session:", session);
+        if (session) {
+          dispatch(setLogin(session));
+        }
+      } catch (error) {
+        dispatch(logout()); // no session found 
+      }
+    };
 
+    checkSession();
+  }, []);
+
+  useEffect(() => {
     console.log("isLoggedIn:", isLoggedIn);
-    console.log("segments:", segments);
-    console.log("isAuthGroup:", isAuthGroup);
 
-    if (!isLoggedIn && !isAuthGroup) {
-      router.replace("/(auth)/signin");
-    } else if (isLoggedIn && isAuthGroup) {
-      router.replace("/dashboard");
+    if (!isLoggedIn) {
+      router.replace("/signin");
+    } else if (isLoggedIn) {
+      router.replace("/(root)");
     }
-  }, [isLoggedIn, segments]);
+  }, [isLoggedIn]);
 
   return (
     <>
       <StatusBar style="auto" />
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-      </Stack>
+      <Slot />
     </>
   );
 };

@@ -27,6 +27,7 @@ const FormField = ({
   selectOptions = null, // <-- New prop
   onSelect, // callback when option selected
   value,
+  onChangeText, // <-- Make sure to receive this prop
   className,
   ...props
 }) => {
@@ -35,7 +36,7 @@ const FormField = ({
 
   const handleSelect = (item) => {
     setShowSelectModal(false);
-    onSelect?.(item);
+    onSelect?.(item); // This triggers the callback passed from parent
   };
 
   const isSelect = Array.isArray(selectOptions);
@@ -70,7 +71,7 @@ const FormField = ({
                 </Text>
                 <Image
                   source={icons.DownArr} // Add this icon to your icons folder
-                  className="w-8 h-8  text-white"
+                  className="w-8 h-8 text-white"
                   resizeMode="contain"
                 />
               </TouchableOpacity>
@@ -78,8 +79,10 @@ const FormField = ({
               <TextInput
                 className={`rounded-full p-4 font-pregular text-[18px] flex-1 ${inputStyle} text-left`}
                 secureTextEntry={name === "password" && !showPassword}
-                {...props}
+                value={value} // <-- Controlled component value
+                onChangeText={onChangeText} // <-- Update value on change
                 placeholder={placeholder}
+                {...props}
               />
             )}
 

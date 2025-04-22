@@ -1,4 +1,11 @@
-import { Account, Client, ID, Storage, Databases } from "react-native-appwrite";
+import {
+  Account,
+  Client,
+  ID,
+  Storage,
+  Databases,
+  Avatars,
+} from "react-native-appwrite";
 
 export const appwriteConf = {
   api_url: process.env.EXPO_PUBLIC_API_URL,
@@ -21,3 +28,14 @@ export const client = new Client()
 export const account = new Account(client);
 export const database = new Databases(client);
 export const storage = new Storage(client);
+export const avatar = new Avatars(client);
+
+export const userInitials = async (username) => {
+  try {
+    const result = await avatar.getInitials(username);
+    console.log("User initials: ", result);
+    return result;
+  } catch (error) {
+    console.log("Error getting user initials:", error);
+  }
+};

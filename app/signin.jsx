@@ -1,10 +1,11 @@
-import { View, Text, SafeAreaView, Image } from "react-native";
+import { View, Text, SafeAreaView, Image, Alert } from "react-native";
 import React, { useState } from "react";
-import FormField from "../components/FormField";
-import icon from "../../constants/icon";
-import CustomButton from "../components/CustomButton";
-import image from "../../constants/image";
+import FormField from "./components/FormField";
+import icon from "../constants/icon";
+import CustomButton from "./components/CustomButton";
+import image from "../constants/image";
 import { Link } from "expo-router";
+import { signInUser } from "../api/appwrite.api";
 
 const signin = () => {
   const [form, setForm] = useState({
@@ -12,7 +13,15 @@ const signin = () => {
     password: "",
   });
 
-  const handleSignIn = () => {};
+  const handleSignIn = async () => {
+    try {
+      const response = await signInUser(form.email, form.password);
+      Alert.alert("Success", "Logged in successfully");
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Error", error.message);
+    }
+  };
   return (
     <SafeAreaView className="flex-1 px-4  py-4 justify-between bg-black">
       <View></View>
