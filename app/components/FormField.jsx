@@ -29,6 +29,7 @@ const FormField = ({
   value,
   onChangeText, // <-- Make sure to receive this prop
   className,
+  placeholderStyle = "#434343",
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -55,7 +56,7 @@ const FormField = ({
           )}
 
           <View
-            className={`flex w-full flex-row justify-start pr-3 items-center relative bg-gray-900 rounded-lg border border-neutral-100 ${containerStyle}`}
+            className={`flex w-full flex-row justify-start pr-3 items-center relative bg-bgSecondary rounded-md  ${containerStyle}`}
           >
             {icon && (
               <Image source={icon} className={`w-7 h-7 ml-4 ${iconStyle}`} />
@@ -77,11 +78,12 @@ const FormField = ({
               </TouchableOpacity>
             ) : (
               <TextInput
-                className={`rounded-full p-4 font-pregular text-[18px] flex-1 ${inputStyle} text-left`}
+                className={`rounded-full p-4 font-pregular text-[18px] flex-1 ${inputStyle} text-white   text-left`}
                 secureTextEntry={name === "password" && !showPassword}
                 value={value} // <-- Controlled component value
                 onChangeText={onChangeText} // <-- Update value on change
                 placeholder={placeholder}
+                placeholderTextColor={placeholderStyle}
                 {...props}
               />
             )}

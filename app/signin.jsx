@@ -16,7 +16,11 @@ const signin = () => {
   const handleSignIn = async () => {
     try {
       const response = await signInUser(form.email, form.password);
-      Alert.alert("Success", "Logged in successfully");
+      if (response) {
+        Alert.alert("Success", "Signed in successfully");
+      } else {
+        Alert.alert("Error", "Sign in failed");
+      }
     } catch (error) {
       console.log(error);
       Alert.alert("Error", error.message);

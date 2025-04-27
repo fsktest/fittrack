@@ -6,7 +6,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        bluePrimary: "#002596",
+        bgPrimary: "#000000",
+        bgSecondary: "#1D1D1D",
+        tabActiveBg: "#434343",
+        textPrimary: "#FFFFFF",
+        textSecondary: "#A4A4A4",
+        iconActive: "#434343",
+        iconInActive: "#A4A4A4",
       },
       fontFamily: {
         pthin: ["Poppins-Thin", "sans-serif"],

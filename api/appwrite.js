@@ -12,6 +12,7 @@ export const appwriteConf = {
   projectID: process.env.EXPO_PUBLIC_PROJECT_ID,
   databaseID: process.env.EXPO_PUBLIC_DATABASE_ID,
   userCollectionID: process.env.EXPO_PUBLIC_USER_COLLECTION,
+  exerciseCollectionID: process.env.EXPO_PUBLIC_EXERCISE_COLLECTION,
   workoutCollectionID: process.env.EXPO_PUBLIC_WORKOUTS_COLLECTION,
   workoutExerciseCollectionID:
     process.env.EXPO_PUBLIC_WORKOUTEXERCISE_COLLECTION,
