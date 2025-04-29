@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import ImageCarousel from "./ImageCarousel"; // ✅ import your carousel component
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 const ExerciseList = ({ exercise, refreshing, handleRefresh }) => {
   if (!exercise || exercise.length === 0) {
@@ -17,17 +18,24 @@ const ExerciseList = ({ exercise, refreshing, handleRefresh }) => {
           <Text className="text-textPrimary text-xl text-center">
             Loading Exercises
           </Text>
-          <ActivityIndicator size={30} color="#ffffff" />
+          <ActivityIndicator size={30} color="#9BEC00" />
         </View>
       </View>
     );
   }
 
+  const handleExercisePress = (item) => {
+    router.push(`/exercise/${item.$id}`);
+  };
+
   return (
     <FlatList
       data={exercise}
       renderItem={({ item }) => (
-        <TouchableOpacity className="bg-bgSecondary rounded-2xl h-[340px] shadow-lg mb-4 overflow-hidden">
+        <TouchableOpacity
+          onPress={() => handleExercisePress(item)}
+          className="bg-bgSecondary rounded-2xl h-[340px] shadow-lg mb-4 overflow-hidden"
+        >
           {/* ✅ Use the Carousel component */}
           {item.imageUrls && item.imageUrls.length > 0 && (
             <ImageCarousel imageUrls={item.imageUrls} />
@@ -35,7 +43,7 @@ const ExerciseList = ({ exercise, refreshing, handleRefresh }) => {
 
           <View className="bg-bgSecondary p-4">
             <View className="flex-row justify-between items-center mb-2">
-              <Text className="text-white text-3xl font-semibold">
+              <Text className="text-white text-2xl font-semibold max-w-[80%]">
                 {item.name}
               </Text>
               <View className="flex-row items-center gap-2">
@@ -72,7 +80,10 @@ const ExerciseList = ({ exercise, refreshing, handleRefresh }) => {
               </View>
               <View className="flex-row items-center gap-2 w-[48%]">
                 <Ionicons size={22} name="body-outline" color="#A4A4A4" />
-                <Text className="text-textSecondary text-xl capitalize" numberOfLines={1}>
+                <Text
+                  className="text-textSecondary text-xl capitalize"
+                  numberOfLines={1}
+                >
                   {item.primary_muscles}{" "}
                   {item.secondary_muscles && `& ${item.secondary_muscles}`}
                 </Text>

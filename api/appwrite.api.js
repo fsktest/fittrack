@@ -215,6 +215,31 @@ export const getAllExercises = async () => {
   }
 };
 
+export const getExerciseById = async (id) => {
+  try {
+    const response = await database.getDocument(
+      appwriteConf.databaseID,
+      appwriteConf.exerciseCollectionID,
+      id
+    );
+
+    let imageUrls = [];
+
+    if (response.image_ids && response.image_ids.length > 0) {
+      imageUrls = response.image_ids.map(
+        (imageId) => storage.getFileView(appwriteConf.bucketID, imageId).href
+      );
+    }
+
+    const exerciseWithImageUrls = { ...response, imageUrls };
+
+    return exerciseWithImageUrls;
+  } catch (error) {
+    console.error("Error getting exercise by ID:", error);
+    return null;
+  }
+};
+
 export const getImageById = async (id) => {
   try {
     const response = await storage.getFileView(appwriteConf.bucketID, id);

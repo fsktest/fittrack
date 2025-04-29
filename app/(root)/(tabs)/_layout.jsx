@@ -6,7 +6,7 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 const TabIcon = ({ focused, IconComponent, iconName }) => (
   <View
     style={{
-      backgroundColor: focused ? "#434343" : "transparent",
+      backgroundColor: focused ? "#9BEC00" : "transparent",
       borderRadius: 5,
       width: 60,
       height: 44,
@@ -14,7 +14,7 @@ const TabIcon = ({ focused, IconComponent, iconName }) => (
       alignItems: "center",
     }}
   >
-    <IconComponent name={iconName} size={24} color={`${focused ? "#A4A4A4" : "#FFFFFF"}`} />
+    <IconComponent name={iconName} size={24} color={`${focused ? "#000" : "#FFFFFF"}`} />
   </View>
 );
 

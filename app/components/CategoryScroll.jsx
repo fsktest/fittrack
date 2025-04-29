@@ -16,7 +16,7 @@ const CategoryScroll = ({ categories, selected, setSelected }) => {
         <TouchableOpacity key={index} onPress={() => setSelected(item)}>
           <View
             style={{
-              backgroundColor: selected === item ? "#ffffff" : "#1c1c1e",
+              backgroundColor: selected === item ? "#9BEC00" : "#1c1c1e",
               paddingVertical: 6,
               paddingHorizontal: 16,
               borderRadius: 3,
