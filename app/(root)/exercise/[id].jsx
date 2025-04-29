@@ -197,7 +197,7 @@ const Exercise = () => {
             </View>
 
             <View className="bg-btnPrimary px-3 py-1 rounded">
-              <Text className="text-black text-xs">
+              <Text className="text-white text-xs">
                 {level.charAt(0).toUpperCase() + level.slice(1)}
               </Text>
             </View>
@@ -242,7 +242,7 @@ const Exercise = () => {
             {instructionSteps.map((step, index) => (
               <View key={index} className="flex-row mb-4">
                 <View className="w-8 h-8 rounded-full bg-btnPrimary items-center justify-center mr-3">
-                  <Text className="text-black font-semibold">{index + 1}</Text>
+                  <Text className="text-white font-semibold">{index + 1}</Text>
                 </View>
                 <View className="flex-1">
                   <Text className="text-gray-300">{step}</Text>
@@ -253,7 +253,7 @@ const Exercise = () => {
 
           {/* Related Exercises */}
           <TouchableOpacity className="bg-btnPrimary flex items-center justify-center mb-4 py-4 rounded-md">
-            <Text className="text-lg font-medium text-center text-black">
+            <Text className="text-lg font-medium text-center text-white">
               Add to Routine
             </Text>
           </TouchableOpacity>

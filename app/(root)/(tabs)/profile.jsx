@@ -114,7 +114,15 @@ const profile = () => {
   return (
     <SafeAreaView className="flex-1 px-4 bg-bgPrimary">
       {/* Profile Image and some Icon  */}
-      <View className="relative flex items-center justify-center">
+      <View className="flex-row items-center justify-end">
+        <TouchableOpacity
+          onPress={handleLogOut}
+          className="bg-btnPrimary p-2 rounded-md"
+        >
+          <Ionicons name="log-out-outline" size={25} color="#fff" />
+        </TouchableOpacity>
+      </View>
+      <View className="relative flex items-center justify-center mt-3">
         <Image
           source={{ uri: currentUser?.avatar }}
           className="size-24 rounded-full border-[3px] border-btnPrimary p-1"
@@ -148,18 +156,18 @@ const profile = () => {
       </View>
 
       {/* Friends, achievements, Day Streaks */}
-      <View className="flex flex-row justify-between items-center mx-3 my-4 ">
-        <View className="flex items-center">
+      <View className="flex flex-row justify-between items-center my-4 ">
+        <View className="flex items-center bg-bgSecondary px-2 py-4 w-[30%] rounded-md">
           <Text className="text-white text-xl font-psemibold">3</Text>
           <Text className="text-textSecondary">Friends</Text>
         </View>
         {/* sfdsf */}
-        <View className="flex items-center">
+        <View className="flex items-center bg-bgSecondary px-2 py-4 w-[30%] rounded-md">
           <Text className="text-white text-xl font-psemibold">3</Text>
           <Text className="text-textSecondary">Achievements</Text>
         </View>
         {/* sfdsf */}
-        <View className="flex items-center">
+        <View className="flex items-center bg-bgSecondary px-2 py-4 w-[30%] rounded-md">
           <Text className="text-white text-xl font-psemibold">4</Text>
           <Text className="text-textSecondary">Day Streak</Text>
         </View>

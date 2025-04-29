@@ -9,6 +9,7 @@ import {
 import ImageCarousel from "./ImageCarousel"; // ✅ import your carousel component
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import CustomButton from "./CustomButton";
 
 const ExerciseList = ({ exercise, refreshing, handleRefresh }) => {
   if (!exercise || exercise.length === 0) {
@@ -32,10 +33,7 @@ const ExerciseList = ({ exercise, refreshing, handleRefresh }) => {
     <FlatList
       data={exercise}
       renderItem={({ item }) => (
-        <TouchableOpacity
-          onPress={() => handleExercisePress(item)}
-          className="bg-bgSecondary rounded-2xl h-[340px] shadow-lg mb-4 overflow-hidden"
-        >
+        <TouchableOpacity className="bg-bgSecondary rounded-2xl h-[380px] shadow-lg mb-4 overflow-hidden">
           {/* ✅ Use the Carousel component */}
           {item.imageUrls && item.imageUrls.length > 0 && (
             <ImageCarousel imageUrls={item.imageUrls} />
@@ -88,6 +86,14 @@ const ExerciseList = ({ exercise, refreshing, handleRefresh }) => {
                   {item.secondary_muscles && `& ${item.secondary_muscles}`}
                 </Text>
               </View>
+            </View>
+
+            <View className="mt-4">
+              <CustomButton
+                title="View Exercise"
+                containerStyle="h-[50px]"
+                handlepress={() => handleExercisePress(item)}
+              />
             </View>
           </View>
         </TouchableOpacity>

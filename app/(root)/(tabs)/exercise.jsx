@@ -98,10 +98,9 @@ const Exercise = () => {
     try {
       const response = await getAllExercises();
       setAllExercises(response); // Replace local source
+      setRefreshing(false);
     } catch (error) {
       console.log(error);
-    } finally {
-      setRefreshing(false);
     }
   };
 
@@ -124,7 +123,7 @@ const Exercise = () => {
 
             <TouchableOpacity
               onPress={() => setShowCategory((prev) => !prev)}
-              className="bg-bgSecondary rounded h-[60px] px-4 flex items-center justify-center"
+              className="bg-bgSecondary rounded p-4 flex items-center justify-center"
             >
               <Ionicons name="funnel-outline" size={24} color="#A4A4A4" />
             </TouchableOpacity>
