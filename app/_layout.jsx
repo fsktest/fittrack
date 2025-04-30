@@ -9,6 +9,7 @@ import store from "../store/store";
 import { useDispatch } from "react-redux";
 import { account } from "../api/appwrite";
 import { logout, login as setLogin } from "../store/authSlice";
+import { getCurrentUser } from "../api/appwrite.api";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -20,15 +21,44 @@ const AppContent = () => {
 
   useEffect(() => {
     // ✅ Restore session from Appwrite if present
+    // const checkSession = async () => {
+    //   try {
+    //     const session = await account.get();
+    //     console.log("session:", session);
+    //     if (session) {
+    //       dispatch(setLogin(session));
+    //     }
+    //   } catch (error) {
+    //     dispatch(logout()); // no session found
+    //   }
+    // };
+
     const checkSession = async () => {
       try {
         const session = await account.get();
-        console.log("session:", session);
         if (session) {
-          dispatch(setLogin(session));
+          const user = await account.get();
+          const currentUser = await getCurrentUser(user.$id);
+
+          console.log("🔄 Restoring session from Appwrite");
+          dispatch(setLogin({ session, user, currentUser }));
+          return;
         }
       } catch (error) {
-        dispatch(logout()); // no session found 
+        console.log("🔁 Attempting to restore from SecureStore...");
+
+        try {
+          const storedUser = await SecureStore.getItemAsync("currentUser");
+          if (storedUser) {
+            const parsedUser = JSON.parse(storedUser);
+            dispatch(setLogin({ user: parsedUser }));
+            return;
+          }
+        } catch (e) {
+          console.log("⚠️ Failed to restore from SecureStore:", e);
+        }
+
+        dispatch(logout());
       }
     };
 

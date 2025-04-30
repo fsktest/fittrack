@@ -30,7 +30,7 @@ const signin = () => {
     <SafeAreaView className="flex-1 px-4  py-4 justify-between bg-black">
       <View></View>
       <View className="flex items-center justify-center">
-        <Text className="text-white text-3xl font-semibold">
+        <Text className="text-white text-2xl font-semibold">
           Welcome Back 👋
         </Text>
         <FormField
@@ -61,7 +61,7 @@ const signin = () => {
 
         <View className="mt-10 flex-row items-center justify-center">
           <Text className="text-gray-500 text-lg">Don't Have an Account </Text>
-          <Link href="/signup" className="text-red-500 text-lg">
+          <Link href="/signup" className="text-btnPrimary text-lg">
             SIGN UP
           </Link>
         </View>

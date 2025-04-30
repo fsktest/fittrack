@@ -147,35 +147,6 @@ export const getCurrentUser = async () => {
   }
 };
 
-// export const getAllExercises = async () => {
-//   const limit = 100; // Appwrite allows up to 100 per request
-//   let offset = 0;
-//   let allDocuments = [];
-
-//   try {
-//     while (true) {
-//       const response = await database.listDocuments(
-//         appwriteConf.databaseID,
-//         appwriteConf.exerciseCollectionID,
-//         [
-//           // The third param is for queries
-//           Query.limit(limit),
-//           Query.offset(offset),
-//         ]
-//       );
-
-//       allDocuments = [...allDocuments, ...response.documents];
-
-//       if (response.documents.length < limit) break; // No more data
-//       offset += limit;
-//     }
-
-//     return allDocuments;
-//   } catch (error) {
-//     console.log("Error getting all exercises:", error);
-//   }
-// };
-
 export const getAllExercises = async () => {
   const limit = 100;
   let offset = 0;

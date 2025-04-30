@@ -155,10 +155,10 @@ const Signup = () => {
       <ScrollView className="flex-1 mt-20">
         <View className="flex items-center justify-center">
           <View className="mb-6">
-            <Text className="text-white text-3xl font-psemibold text-center">
+            <Text className="text-white text-2xl font-medium text-center">
               Register Your Account
             </Text>
-            <Text className="text-red-500 text-2xl text-center font-pmedium">
+            <Text className="text-btnPrimary text-xl text-center ">
               Fit Track
             </Text>
           </View>
@@ -172,7 +172,7 @@ const Signup = () => {
                 <CustomButton
                   title="Next"
                   handlepress={() => setStep(step + 1)}
-                  containerStyle="w-full bg-gray-700 border"
+                  containerStyle="w-full bg-[#363636] "
                 />
               )}
 
@@ -181,12 +181,12 @@ const Signup = () => {
                   <CustomButton
                     title="Back"
                     handlepress={() => setStep(step - 1)}
-                    containerStyle="w-[48%] bg-gray-700"
+                    containerStyle="w-[48%] bg-[#363636]"
                   />
                   <CustomButton
                     title="Next"
                     handlepress={() => setStep(step + 1)}
-                    containerStyle="w-[48%] bg-gray-700"
+                    containerStyle="w-[48%] bg-[#363636]"
                   />
                 </View>
               )}
@@ -196,7 +196,7 @@ const Signup = () => {
                   <CustomButton
                     title="Back"
                     handlepress={() => setStep(step - 1)}
-                    containerStyle="w-[48%] bg-gray-700"
+                    containerStyle="w-[48%] bg-[#363636]"
                   />
                   <CustomButton
                     title="Sign Up"
@@ -213,7 +213,7 @@ const Signup = () => {
             <Text className="text-gray-500 text-lg">
               Already Have an Account{" "}
             </Text>
-            <Link href="/signin" className="text-red-500 text-lg">
+            <Link href="/signin" className="text-btnPrimary text-lg">
               SIGN IN
             </Link>
           </View>
