@@ -6,7 +6,7 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 const TabIcon = ({ focused, IconComponent, iconName }) => (
   <View
     style={{
-      backgroundColor: focused ? "#434343" : "transparent",
+      backgroundColor: focused ? "#9BEC00" : "transparent",
       borderRadius: 5,
       width: 60,
       height: 44,
@@ -14,7 +14,11 @@ const TabIcon = ({ focused, IconComponent, iconName }) => (
       alignItems: "center",
     }}
   >
-    <IconComponent name={iconName} size={24} color={`${focused ? "#A4A4A4" : "#FFFFFF"}`} />
+    <IconComponent
+      name={iconName}
+      size={24}
+      color={`${focused ? "#000" : "#FFFFFF"}`}
+    />
   </View>
 );
 
@@ -46,25 +50,13 @@ const TabLayout = () => {
           tabBarIcon: ({ focused }) => (
             <TabIcon
               focused={focused}
-              IconComponent={Ionicons}
-              iconName="home-outline"
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="dashboard"
-        options={{
-          title: "Dashboard",
-          tabBarIcon: ({ focused }) => (
-            <TabIcon
-              focused={focused}
               IconComponent={MaterialIcons}
               iconName="dashboard"
             />
           ),
         }}
       />
+
       <Tabs.Screen
         name="exercise"
         options={{
@@ -85,6 +77,20 @@ const TabLayout = () => {
               focused={focused}
               IconComponent={Ionicons}
               iconName="person-circle-outline"
+            />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="dashboard"
+        options={{
+          title: "Dashboard",
+          tabBarIcon: ({ focused }) => (
+            <TabIcon
+              focused={focused}
+              IconComponent={Ionicons}
+              iconName="settings-outline"
             />
           ),
         }}

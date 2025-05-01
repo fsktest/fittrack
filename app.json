@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "fit-track-app",
+    "name": "Fit Track",
     "slug": "fit-track-app",
     "scheme": "fit-track",
     "version": "1.0.0",
@@ -28,10 +28,11 @@
       "bundler": "metro",
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      "expo-router",
-      "expo-secure-store"
-    ],
+    "updates": {
+      "enabled": true,
+      "fallbackToCacheTimeout": 0
+    },
+    "plugins": ["expo-router", "expo-secure-store"],
     "extra": {
       "router": {
         "origin": false

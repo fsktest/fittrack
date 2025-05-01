@@ -147,35 +147,6 @@ export const getCurrentUser = async () => {
   }
 };
 
-// export const getAllExercises = async () => {
-//   const limit = 100; // Appwrite allows up to 100 per request
-//   let offset = 0;
-//   let allDocuments = [];
-
-//   try {
-//     while (true) {
-//       const response = await database.listDocuments(
-//         appwriteConf.databaseID,
-//         appwriteConf.exerciseCollectionID,
-//         [
-//           // The third param is for queries
-//           Query.limit(limit),
-//           Query.offset(offset),
-//         ]
-//       );
-
-//       allDocuments = [...allDocuments, ...response.documents];
-
-//       if (response.documents.length < limit) break; // No more data
-//       offset += limit;
-//     }
-
-//     return allDocuments;
-//   } catch (error) {
-//     console.log("Error getting all exercises:", error);
-//   }
-// };
-
 export const getAllExercises = async () => {
   const limit = 100;
   let offset = 0;
@@ -212,6 +183,31 @@ export const getAllExercises = async () => {
     return allDocuments;
   } catch (error) {
     console.log("Error getting all exercises:", error);
+  }
+};
+
+export const getExerciseById = async (id) => {
+  try {
+    const response = await database.getDocument(
+      appwriteConf.databaseID,
+      appwriteConf.exerciseCollectionID,
+      id
+    );
+
+    let imageUrls = [];
+
+    if (response.image_ids && response.image_ids.length > 0) {
+      imageUrls = response.image_ids.map(
+        (imageId) => storage.getFileView(appwriteConf.bucketID, imageId).href
+      );
+    }
+
+    const exerciseWithImageUrls = { ...response, imageUrls };
+
+    return exerciseWithImageUrls;
+  } catch (error) {
+    console.error("Error getting exercise by ID:", error);
+    return null;
   }
 };
 

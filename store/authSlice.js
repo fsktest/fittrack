@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { router } from "expo-router";
 
 const authSlice = createSlice({
   name: "auth",

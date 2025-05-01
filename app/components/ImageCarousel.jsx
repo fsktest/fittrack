@@ -59,17 +59,9 @@ const ImageCarousel = ({ imageUrls }) => {
               top: "5%",
               right: "10%",
               position: "absolute",
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-              elevation: 5,
             }}
           >
-            <Ionicons size={24} name="bookmark-outline" color="#ffffff" />
+            <Ionicons size={24} name="bookmark-outline" color="#ffffff" className="shadow" />
           </TouchableOpacity>
         </View>
       ))}

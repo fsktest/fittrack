@@ -12,7 +12,7 @@ const CustomButton = ({
     <TouchableOpacity
       onPress={handlepress}
       activeOpacity={0.8}
-      className={`w-full h-[60px] bg-red-500  rounded-lg  py-2 flex items-center justify-center ${containerStyle} ${
+      className={`w-full h-[60px] bg-btnPrimary rounded-lg  py-2 flex items-center justify-center ${containerStyle} ${
         isLoading ? "opacity-50" : ""
       }`}
       disabled={isLoading}

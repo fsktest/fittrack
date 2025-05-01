@@ -13,6 +13,7 @@ module.exports = {
         textSecondary: "#A4A4A4",
         iconActive: "#434343",
         iconInActive: "#A4A4A4",
+        btnPrimary: "#9BEC00",
       },
       fontFamily: {
         pthin: ["Poppins-Thin", "sans-serif"],

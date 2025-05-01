@@ -3,6 +3,9 @@
 # dependencies
 node_modules/
 
+android/
+
+
 # Expo
 .expo/
 dist/
@@ -24,6 +27,7 @@ expo-env.d.ts
 npm-debug.*
 yarn-debug.*
 yarn-error.*
+.vscode/
 
 # macOS
 .DS_Store
