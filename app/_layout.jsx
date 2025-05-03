@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { account } from "../api/appwrite";
 import { logout, login as setLogin } from "../store/authSlice";
 import { getCurrentUser } from "../api/appwrite.api";
+import * as SecureStore from "expo-secure-store";
 
 SplashScreen.preventAutoHideAsync();
 

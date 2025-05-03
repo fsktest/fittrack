@@ -12,7 +12,7 @@ const Home = () => {
         <Text className="text-textPrimary text-center text-2xl">Dashboard</Text>
       </View> */}
       <ScrollView className="flex-1 px-4 mt-3">
-        <Text className="text-textPrimary text-2xl">Welcome Back, Fsk 👋</Text>
+        <Text className="text-textPrimary text-xl">Welcome Back, Fsk 👋</Text>
         <View className="flex mt-2">
           <Text className="text-textSecondary text-lg">Today's Progress</Text>
 
@@ -87,3 +87,4 @@ const Home = () => {
 };
 
 export default Home;
+

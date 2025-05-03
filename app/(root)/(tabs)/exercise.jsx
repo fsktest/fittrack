@@ -108,7 +108,9 @@ const Exercise = () => {
   return (
     <SafeAreaView className="flex-1 bg-bgPrimary">
       <View className="flex-1 px-4 mt-4">
-        <Text className="text-textPrimary text-3xl">Explore Exercises 💪</Text>
+        <Text className="text-textPrimary text-xl mb-2">
+          Explore Exercises 💪
+        </Text>
         {/* Fixed Header */}
         <View className="z-10 mb-4 ">
           <View className="flex-row items-center gap-2">
@@ -121,20 +123,20 @@ const Exercise = () => {
               />
             </View>
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => setShowCategory((prev) => !prev)}
               className="bg-bgSecondary rounded p-4 flex items-center justify-center"
             >
               <Ionicons name="funnel-outline" size={24} color="#A4A4A4" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
-          {showCategory && (
-            <CategoryScroll
-              categories={ArrExer}
-              selected={selected}
-              setSelected={setSelected}
-            />
-          )}
+          {/* {showCategory && ( */}
+          <CategoryScroll
+            categories={ArrExer}
+            selected={selected}
+            setSelected={setSelected}
+          />
+          {/* )} */}
         </View>
 
         <ExerciseList

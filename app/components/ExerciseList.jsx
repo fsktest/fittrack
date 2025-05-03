@@ -5,6 +5,7 @@ import {
   View,
   Text,
   ActivityIndicator,
+  StyleSheet,
 } from "react-native";
 import ImageCarousel from "./ImageCarousel"; // ✅ import your carousel component
 import { Ionicons } from "@expo/vector-icons";
@@ -15,10 +16,8 @@ const ExerciseList = ({ exercise, refreshing, handleRefresh }) => {
   if (!exercise || exercise.length === 0) {
     return (
       <View className="flex-1 justify-center items-center">
-        <View className="flex-row items-center space-x-3">
-          <Text className="text-textPrimary text-xl text-center">
-            Loading Exercises
-          </Text>
+        <View className="flex-row items-center gap-3">
+          <Text className="text-textPrimary text-xl text-center">Loading</Text>
           <ActivityIndicator size={30} color="#9BEC00" />
         </View>
       </View>
@@ -33,7 +32,7 @@ const ExerciseList = ({ exercise, refreshing, handleRefresh }) => {
     <FlatList
       data={exercise}
       renderItem={({ item }) => (
-        <TouchableOpacity className="bg-bgSecondary rounded-2xl h-[380px] shadow-lg mb-4 overflow-hidden">
+        <View className="bg-bgSecondary rounded-2xl h-[380px] shadow-lg mb-4 overflow-hidden">
           {/* ✅ Use the Carousel component */}
           {item.imageUrls && item.imageUrls.length > 0 && (
             <ImageCarousel imageUrls={item.imageUrls} />
@@ -41,7 +40,7 @@ const ExerciseList = ({ exercise, refreshing, handleRefresh }) => {
 
           <View className="bg-bgSecondary p-4">
             <View className="flex-row justify-between items-center mb-2">
-              <Text className="text-white text-2xl font-semibold max-w-[80%]">
+              <Text className="text-white text-xl font-semibold max-w-[80%]">
                 {item.name}
               </Text>
               <View className="flex-row items-center gap-2">
@@ -50,14 +49,14 @@ const ExerciseList = ({ exercise, refreshing, handleRefresh }) => {
               </View>
             </View>
 
-            <View className="flex-row flex-wrap gap-4 mt-2 justify-between">
-              <View className="flex-row items-center gap-2 w-[48%]">
+            <View className="flex-row  gap-4 mt-2 justify-between">
+              <View className="flex-row items-center gap-2 w-[45%]">
                 <Ionicons size={24} name="infinite-outline" color="#A4A4A4" />
                 <Text className="text-textSecondary text-xl capitalize">
                   {item.force}
                 </Text>
               </View>
-              <View className="flex-row items-center gap-2 w-[48%]">
+              <View className="flex-row items-center gap-2 w-[45%]">
                 <Ionicons
                   size={24}
                   name="speedometer-outline"
@@ -69,14 +68,14 @@ const ExerciseList = ({ exercise, refreshing, handleRefresh }) => {
               </View>
             </View>
 
-            <View className="flex-row flex-wrap gap-4 mt-3 justify-between">
-              <View className="flex-row items-center gap-2 w-[48%]">
+            <View className="flex-row  gap-4 mt-3 justify-between">
+              <View className="flex-row items-center gap-2 w-[45%]">
                 <Ionicons size={24} name="settings-outline" color="#A4A4A4" />
                 <Text className="text-textSecondary text-xl capitalize">
                   {item.equipment}
                 </Text>
               </View>
-              <View className="flex-row items-center gap-2 w-[48%]">
+              <View className="flex-row items-center gap-2 w-[45%]">
                 <Ionicons size={22} name="body-outline" color="#A4A4A4" />
                 <Text
                   className="text-textSecondary text-xl capitalize"
@@ -91,12 +90,12 @@ const ExerciseList = ({ exercise, refreshing, handleRefresh }) => {
             <View className="mt-4">
               <CustomButton
                 title="View Exercise"
-                containerStyle="h-[50px]"
+                containerStyle=""
                 handlepress={() => handleExercisePress(item)}
               />
             </View>
           </View>
-        </TouchableOpacity>
+        </View>
       )}
       keyExtractor={(item) => item.$id}
       contentContainerStyle={{ gap: 5 }}
@@ -107,3 +106,5 @@ const ExerciseList = ({ exercise, refreshing, handleRefresh }) => {
 };
 
 export default ExerciseList;
+
+const styles = StyleSheet.create({});

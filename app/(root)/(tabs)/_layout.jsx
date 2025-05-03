@@ -70,19 +70,6 @@ const TabLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="profile"
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <TabIcon
-              focused={focused}
-              IconComponent={Ionicons}
-              iconName="person-circle-outline"
-            />
-          ),
-        }}
-      />
-
-      <Tabs.Screen
         name="dashboard"
         options={{
           title: "Dashboard",
@@ -90,7 +77,19 @@ const TabLayout = () => {
             <TabIcon
               focused={focused}
               IconComponent={Ionicons}
-              iconName="settings-outline"
+              iconName="people-outline"
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <TabIcon
+              focused={focused}
+              IconComponent={Ionicons}
+              iconName="person-circle-outline"
             />
           ),
         }}
