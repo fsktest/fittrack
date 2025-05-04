@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import FormField from "./components/FormField";
 import icon from "../constants/icon";
 import CustomButton from "./components/CustomButton";
-import image from "../constants/image";
 import { Link } from "expo-router";
 import { signInUser } from "../api/appwrite.api";
 

@@ -8,7 +8,6 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import CustomButton from "../../components/CustomButton";
 import { signOutUser } from "../../../api/appwrite.api";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
@@ -22,7 +21,6 @@ const profile = () => {
 
   const tabs = [
     { name: "Achievements", icon: "military-tech" },
-    { name: "Friends", icon: "people-outline" },
     { name: "Challenges", icon: "emoji-flags" },
   ];
 
@@ -44,23 +42,6 @@ const profile = () => {
     },
   ];
 
-  const friends = [
-    {
-      name: "Sarah Miller",
-      steps: "12,456",
-      avatar: "https://randomuser.me/api/portraits/women/1.jpg",
-    },
-    {
-      name: "Mike Rodriguez",
-      steps: "9,823",
-      avatar: "https://randomuser.me/api/portraits/men/2.jpg",
-    },
-    {
-      name: "Jessica Chen",
-      steps: "15,341",
-      avatar: "https://randomuser.me/api/portraits/women/3.jpg",
-    },
-  ];
 
   const challenges = [
     {
@@ -112,130 +93,134 @@ const profile = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 px-4 bg-bgPrimary">
+    <SafeAreaView className="px-4 bg-bgPrimary">
       {/* Profile Image and some Icon  */}
-      <View className="flex-row items-center justify-end">
-        <TouchableOpacity
-          onPress={handleLogOut}
-          className="bg-btnPrimary p-2 rounded-md"
-        >
-          <Ionicons name="log-out-outline" size={25} color="#fff" />
-        </TouchableOpacity>
-      </View>
-      <View className="relative flex items-center justify-center mt-3">
-        <Image
-          source={{ uri: currentUser?.avatar }}
-          className="size-24 rounded-full border-[3px] border-btnPrimary p-1"
-        />
-        <View className="bg-btnPrimary border border-black rounded-full font-pmedium absolute right-[40%] bottom-1 p-1">
-          <TouchableOpacity>
-            <Ionicons name="card-outline" size={16} className="" color="#000" />
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {/* Names and goals  */}
-
-      <Text className="text-white text-xl font-psemibold capitalize text-center mt-2">
-        {currentUser?.name}
-      </Text>
-      <Text className="text-textSecondary text-lg  capitalize text-center mb-2">
-        {currentUser?.goal}
-      </Text>
-
-      {/* User ID Copy */}
-      <View className=" w-full rounded-sm flex flex-row justify-center items-center gap-2">
-        <View className="bg-bgSecondary px-2 py-2  rounded-lg flex flex-row justify-center items-center gap-2">
-          <Text className="text-textSecondary">
-            User ID: {currentUser?.$id}
-          </Text>
-          <TouchableOpacity>
-            <Ionicons name="copy-outline" size={18} color="#A4A4A4" />
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {/* Friends, achievements, Day Streaks */}
-      <View className="flex flex-row justify-between items-center my-4 ">
-        <View className="flex items-center bg-bgSecondary px-2 py-4 w-[30%] rounded-md">
-          <Text className="text-white text-xl font-psemibold">3</Text>
-          <Text className="text-textSecondary">Friends</Text>
-        </View>
-        {/* sfdsf */}
-        <View className="flex items-center bg-bgSecondary px-2 py-4 w-[30%] rounded-md">
-          <Text className="text-white text-xl font-psemibold">3</Text>
-          <Text className="text-textSecondary">Achievements</Text>
-        </View>
-        {/* sfdsf */}
-        <View className="flex items-center bg-bgSecondary px-2 py-4 w-[30%] rounded-md">
-          <Text className="text-white text-xl font-psemibold">4</Text>
-          <Text className="text-textSecondary">Day Streak</Text>
-        </View>
-      </View>
-
-      {/* Share and Copy BTN */}
-      <View className="flex flex-row items-center justify-center w-full gap-4 my-2">
-        <TouchableOpacity className="bg-bgSecondary flex flex-row items-center justify-center gap-1 px-4 py-4 rounded-md w-[48%]">
-          <Ionicons name="share-social-outline" size={20} color="#A4A4A4" />
-          <Text className="text-[#A4A4A4]">Share Profile</Text>
-        </TouchableOpacity>
-        <TouchableOpacity className="bg-btnPrimary flex flex-row items-center justify-center gap-1 px-4 py-4 rounded-md w-[48%]">
-          <Ionicons name="qr-code-outline" size={20} color="#000" />
-          <Text>QR Code</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Tab Switches */}
-
-      <View className="pt-2 border-b border-gray-800">
-        <ScrollView
-          horizontal
-          contentContainerStyle={{ justifyContent: "space-between" }}
-          showsHorizontalScrollIndicator={false}
-        >
-          {tabs.map((tab) => {
-            const isActive = activeTab === tab.name;
-            return (
-              <TouchableOpacity
-                key={tab.name}
-                onPress={() => setActiveTab(tab.name)}
-                className="flex-1 items-center justify-center px-4 py-2"
-              >
-                <View className="flex items-center">
-                  <View className="flex-row items-center">
-                    <MaterialIcons
-                      name={tab.icon}
-                      size={20}
-                      color={isActive ? "#A9FF00" : "#A4A4A4"}
-                    />
-                    <Text
-                      className={`ml-2 text-sm ${
-                        isActive ? "text-lime-400" : "text-[#A4A4A4]"
-                      }`}
-                    >
-                      {tab.name}
-                    </Text>
-                  </View>
-
-                  {/* Bottom Border for Active Tab */}
-                  {isActive && (
-                    <View className="h-1 w-8 bg-lime-400 rounded-full mt-1" />
-                  )}
-                </View>
-              </TouchableOpacity>
-            );
-          })}
-        </ScrollView>
-      </View>
-
-      {/* Tab Content */}
       <ScrollView
         contentContainerStyle={{
-          alignItems: "center",
           paddingBottom: 80,
         }}
-        className="mt-3"
       >
+        <View className="flex-row items-center justify-end">
+          <TouchableOpacity
+            onPress={handleLogOut}
+            className="bg-btnPrimary p-2 rounded-md"
+          >
+            <Ionicons name="log-out-outline" size={25} color="#fff" />
+          </TouchableOpacity>
+        </View>
+        <View className="relative flex items-center justify-center mt-3">
+          <Image
+            source={{ uri: currentUser?.avatar }}
+            className="size-24 rounded-full border-[3px] border-btnPrimary p-1"
+          />
+          <View className="bg-btnPrimary border border-black rounded-full font-pmedium absolute right-[40%] bottom-1 p-1">
+            <TouchableOpacity>
+              <Ionicons
+                name="card-outline"
+                size={16}
+                className=""
+                color="#000"
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* Names and goals  */}
+
+        <Text className="text-white text-xl font-psemibold capitalize text-center mt-2">
+          {currentUser?.name}
+        </Text>
+        <Text className="text-textSecondary text-lg  capitalize text-center mb-2">
+          {currentUser?.goal}
+        </Text>
+
+        {/* User ID Copy */}
+        <View className=" w-full rounded-sm flex flex-row justify-center items-center gap-2">
+          <View className="bg-bgSecondary px-2 py-2  rounded-lg flex flex-row justify-center items-center gap-2">
+            <Text className="text-textSecondary">
+              User ID: {currentUser?.$id}
+            </Text>
+            <TouchableOpacity>
+              <Ionicons name="copy-outline" size={18} color="#A4A4A4" />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* Friends, achievements, Day Streaks */}
+        <View className="flex flex-row justify-between items-center my-4 ">
+          <View className="flex items-center bg-bgSecondary px-2 py-4 w-[30%] rounded-md">
+            <Text className="text-white text-xl font-psemibold">3</Text>
+            <Text className="text-textSecondary">Friends</Text>
+          </View>
+          {/* sfdsf */}
+          <View className="flex items-center bg-bgSecondary px-2 py-4 w-[30%] rounded-md">
+            <Text className="text-white text-xl font-psemibold">3</Text>
+            <Text className="text-textSecondary">Achievements</Text>
+          </View>
+          {/* sfdsf */}
+          <View className="flex items-center bg-bgSecondary px-2 py-4 w-[30%] rounded-md">
+            <Text className="text-white text-xl font-psemibold">4</Text>
+            <Text className="text-textSecondary">Day Streak</Text>
+          </View>
+        </View>
+
+        {/* Share and Copy BTN */}
+        <View className="flex flex-row items-center justify-center w-full gap-4 my-2">
+          <TouchableOpacity className="bg-bgSecondary flex flex-row items-center justify-center gap-1 px-4 py-4 rounded-md w-[48%]">
+            <Ionicons name="share-social-outline" size={20} color="#A4A4A4" />
+            <Text className="text-[#A4A4A4]">Share Profile</Text>
+          </TouchableOpacity>
+          <TouchableOpacity className="bg-btnPrimary flex flex-row items-center justify-center gap-1 px-4 py-4 rounded-md w-[48%]">
+            <Ionicons name="qr-code-outline" size={20} color="#000" />
+            <Text>QR Code</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Tab Switches */}
+
+        <View className="pt-2 border-b border-gray-800">
+          <ScrollView
+            horizontal
+            contentContainerStyle={{ justifyContent: "space-between" }}
+            showsHorizontalScrollIndicator={false}
+          >
+            {tabs.map((tab) => {
+              const isActive = activeTab === tab.name;
+              return (
+                <TouchableOpacity
+                  key={tab.name}
+                  onPress={() => setActiveTab(tab.name)}
+                  className="flex-1 items-center justify-center px-4 py-2"
+                >
+                  <View className="flex items-center">
+                    <View className="flex-row items-center">
+                      <MaterialIcons
+                        name={tab.icon}
+                        size={20}
+                        color={isActive ? "#A9FF00" : "#A4A4A4"}
+                      />
+                      <Text
+                        className={`ml-2 text-sm ${
+                          isActive ? "text-lime-400" : "text-[#A4A4A4]"
+                        }`}
+                      >
+                        {tab.name}
+                      </Text>
+                    </View>
+
+                    {/* Bottom Border for Active Tab */}
+                    {isActive && (
+                      <View className="h-1 w-8 bg-lime-400 rounded-full mt-1" />
+                    )}
+                  </View>
+                </TouchableOpacity>
+              );
+            })}
+          </ScrollView>
+        </View>
+
+        {/* Tab Content */}
+
         {activeTab === "Achievements" && (
           <View className="flex flex-row flex-wrap justify-between gap-4 mt-4">
             {achievements.map((achievement, index) => (
@@ -256,45 +241,6 @@ const profile = () => {
                   {achievement.description}
                 </Text>
               </View>
-            ))}
-          </View>
-        )}
-        {activeTab === "Friends" && (
-          <View className="w-full px-2 my-2">
-            {/* Add Friend Button */}
-            <TouchableOpacity className="flex-row items-center justify-center mt-2 bg-bgSecondary rounded-lg py-3">
-              <MaterialIcons name="qr-code" size={20} color="#A9FF00" />
-              <Text className="text-white text-lg font-semibold ml-2">
-                Add New Friends
-              </Text>
-            </TouchableOpacity>
-            {friends.map((friend, index) => (
-              <TouchableOpacity
-                key={index}
-                className="flex-row items-center justify-between p-4 border-b border-gray-700"
-              >
-                <View className="flex-row items-center">
-                  <Image
-                    source={{ uri: friend.avatar }}
-                    className="w-12 h-12 rounded-full mr-4"
-                  />
-                  <View>
-                    <Text className="text-white font-semibold text-base">
-                      {friend.name}
-                    </Text>
-                    <View className="flex-row items-center mt-1">
-                      <MaterialIcons
-                        name="emoji-events"
-                        size={16}
-                        color="#A9FF00"
-                      />
-                      <Text className="text-gray-400 text-sm ml-1">
-                        {friend.steps} steps today
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              </TouchableOpacity>
             ))}
           </View>
         )}
