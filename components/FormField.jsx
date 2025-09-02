@@ -4,7 +4,6 @@ import {
   TextInput,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
-  Platform,
   Keyboard,
   Image,
   TouchableOpacity,
@@ -43,10 +42,7 @@ const FormField = ({
   const isSelect = Array.isArray(selectOptions);
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={{ width: "100%" }}
-    >
+    <KeyboardAvoidingView behavior="height" style={{ width: "100%" }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View className="my-2 w-full">
           {label && (

@@ -1,5 +1,5 @@
-// TabNavigation.js
-import { MaterialIcons } from "@expo/vector-icons";
+// TabNavigation.js (Updated with QR Scanner)
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -10,11 +10,11 @@ import {
   Image,
   ActivityIndicator,
   TextInput,
+  Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import CustomButton from "../../components/CustomButton";
 import FormField from "../../components/FormField";
-import icon from "../../../constants/icon";
+import QRScannerModal from "../../components/QRScannerModal";
 
 function Dashboard() {
   const [activeTab, setActiveTab] = useState("All Friends");
@@ -22,6 +22,8 @@ function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredFriends, setFilteredFriends] = useState([]);
+  const [userId, setUserId] = useState(""); 
+  const [qrScannerVisible, setQrScannerVisible] = useState(false); 
 
   const tabs = ["All Friends", "Add Friend"];
 
@@ -45,7 +47,6 @@ function Dashboard() {
       avatar: "https://randomuser.me/api/portraits/women/3.jpg",
     },
     // Rest of the friends data remains the same
-    // Adding unique IDs to each friend for better list rendering
   ];
 
   useEffect(() => {
@@ -77,6 +78,30 @@ function Dashboard() {
     setSearchQuery(text);
   };
 
+  // Handle QR code scan result
+  const handleQRScanned = (data) => {
+    setUserId(data);
+    Alert.alert("User ID Scanned", `Successfully scanned user ID: ${data}`, [
+      { text: "OK" },
+    ]);
+  };
+
+  // Handle friend request submission
+  const handleSendFriendRequest = () => {
+    if (!userId.trim()) {
+      Alert.alert("Error", "Please enter a user ID", [{ text: "OK" }]);
+      return;
+    }
+
+    Alert.alert(
+      "Friend Request",
+      `Friend request sent to user with ID: ${userId}`,
+      [{ text: "OK" }]
+    );
+    // Reset the input field after sending
+    setUserId("");
+  };
+
   const FriendItem = ({ friend }) => (
     <TouchableOpacity key={friend.id} style={styles.friendItem}>
       <View style={styles.friendInfo}>
@@ -98,13 +123,11 @@ function Dashboard() {
         return (
           <ScrollView style={styles.scrollContainer}>
             <View style={styles.contentContainer}>
-              {/* <View style={styles.searchContainer}> */}
               <FormField
                 placeholder="Search your friend"
                 value={searchQuery}
                 onChangeText={handleSearchFriend}
               />
-              {/* </View> */}
 
               {loading ? (
                 <View style={styles.loadingContainer}>
@@ -135,19 +158,42 @@ function Dashboard() {
                 <Text style={styles.sectionTitle}>Add New Friend</Text>
 
                 <View style={styles.inputContainer}>
-                  <Text style={styles.inputLabel}>
-                    Friend's Username or Email
-                  </Text>
+                  <Text style={styles.inputLabel}>Friend's user ID</Text>
                   <TextInput
                     style={styles.input}
-                    placeholder="Enter username or email"
+                    placeholder="Enter user ID"
                     placeholderTextColor="#777777"
+                    value={userId}
+                    onChangeText={setUserId}
                   />
                 </View>
 
-                <TouchableOpacity style={styles.addButton}>
-                  <Text style={styles.addButtonText}>Send Friend Request</Text>
-                </TouchableOpacity>
+                <View>
+                  <TouchableOpacity
+                    style={styles.addButton}
+                    onPress={handleSendFriendRequest}
+                  >
+                    <Text style={styles.addButtonText}>
+                      Send Friend Request
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{
+                      backgroundColor: "#9BEC00",
+                      borderRadius: 8,
+                      padding: 14,
+                      alignItems: "center",
+                      marginBottom: 24,
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      gap: 8,
+                    }}
+                    onPress={() => setQrScannerVisible(true)}
+                  >
+                    <Ionicons name="qr-code-outline" size={20} color="#fff" />
+                    <Text style={{ color: "#fff" }}>Scan QR Code</Text>
+                  </TouchableOpacity>
+                </View>
 
                 <View style={styles.divider} />
 
@@ -187,6 +233,14 @@ function Dashboard() {
           ))}
         </View>
         {renderTabContent()}
+
+        {/* QR Scanner Modal */}
+
+        <QRScannerModal
+          onClose={() => setQrScannerVisible(false)}
+          visible={qrScannerVisible}
+          onScanned={handleQRScanned}
+        />
       </View>
     </SafeAreaView>
   );
@@ -237,6 +291,7 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flex: 1,
+    position: "relative",
   },
   contentContainer: {
     minHeight: "100%",
@@ -325,8 +380,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 24,
   },
+  scanButton: {
+    backgroundColor: "#9BEC00",
+    borderRadius: 8,
+    padding: 14,
+    alignItems: "center",
+    marginBottom: 24,
+    flexDirection: "row",
+    gap: 8,
+    justifyContent: "center",
+  },
   addButtonText: {
-    color: "#121212",
+    color: "#fff",
     fontWeight: "600",
     fontSize: 16,
   },
