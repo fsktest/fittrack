@@ -27,7 +27,11 @@
         "backgroundColor": "#000000"
       },
       "package": "com.texpo196.fittrackapp",
-      "permissions": ["CAMERA"]
+      "permissions": [
+        "CAMERA",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -54,9 +58,8 @@
         "origin": false
       },
       "eas": {
-        "projectId": "67900d3f-0511-4b40-b925-81f6705fddcd"
+        "projectId": "c591cf3b-0350-404b-94a0-2e30b0048fea"
       }
-    },
-    "owner": "texpo196"
+    }
   }
 }

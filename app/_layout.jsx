@@ -21,19 +21,6 @@ const AppContent = () => {
   const router = useRouter();
 
   useEffect(() => {
-    // ✅ Restore session from Appwrite if present
-    // const checkSession = async () => {
-    //   try {
-    //     const session = await account.get();
-    //     console.log("session:", session);
-    //     if (session) {
-    //       dispatch(setLogin(session));
-    //     }
-    //   } catch (error) {
-    //     dispatch(logout()); // no session found
-    //   }
-    // };
-
     const checkSession = async () => {
       try {
         const session = await account.get();
@@ -66,20 +53,28 @@ const AppContent = () => {
     checkSession();
   }, []);
 
-  useEffect(() => {
-    console.log("isLoggedIn:", isLoggedIn);
+  // useEffect(() => {
+  //   console.log("isLoggedIn:", isLoggedIn);
 
-    if (!isLoggedIn) {
-      router.replace("/signin");
-    } else if (isLoggedIn) {
-      router.replace("/(root)");
-    }
-  }, [isLoggedIn]);
+  //   if (!isLoggedIn) {
+  //     router.replace("/signin");
+  //   } else if (isLoggedIn) {
+  //     router.replace("/(root)");
+  //   }
+  // }, [isLoggedIn]);
 
   return (
     <>
       <StatusBar style="auto" />
-      <Slot />
+      <Stack>
+        <Stack.Protected guard={isLoggedIn}>
+          <Stack.Screen name="(root)" options={{ headerShown: false }} />
+        </Stack.Protected>
+        <Stack.Protected guard={!isLoggedIn}>
+          <Stack.Screen name="signin" options={{ headerShown: false }} />
+          <Stack.Screen name="signup" options={{ headerShown: false }} />
+        </Stack.Protected>
+      </Stack>
     </>
   );
 };

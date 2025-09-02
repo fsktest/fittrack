@@ -7,37 +7,37 @@ import {
   Modal,
 } from "react-native";
 import React, { useState } from "react";
-import { CameraView, useCameraPermissions } from "expo-camera";
+// import { CameraView, useCameraPermissions } from "expo-camera";
 
 const QRScannerModal = ({ onClose, onScanned, visible }) => {
-  const [facing, setFacing] = useState("back");
-  const [permission, requestPermission] = useCameraPermissions();
+  // const [facing, setFacing] = useState("back");
+  // const [permission, requestPermission] = useCameraPermissions();
 
-  const toggleCameraFacing = () => {
-    setFacing((prev) => (prev === "front" ? "back" : "front"));
-  };
+  // const toggleCameraFacing = () => {
+  //   setFacing((prev) => (prev === "front" ? "back" : "front"));
+  // };
 
-  const handleBarCodeScanned = ({ data }) => {  
-    onScanned(data);
-    onClose();
-  };
+  // const handleBarCodeScanned = ({ data }) => {
+  //   onScanned(data);
+  //   onClose();
+  // };
 
-  if (!permission) return <View />;
+  // if (!permission) return <View />;
 
-  if (!permission.granted) {
-    return (
-      <View style={styles.permissionContainer}>
-        <Text style={styles.message}>
-          We need your permission to show the camera
-        </Text>
-        <Button onPress={requestPermission} title="Grant Permission" />
-      </View>
-    );
-  }
+  // if (!permission.granted) {
+  //   return (
+  //     <View style={styles.permissionContainer}>
+  //       <Text style={styles.message}>
+  //         We need your permission to show the camera
+  //       </Text>
+  //       <Button onPress={requestPermission} title="Grant Permission" />
+  //     </View>
+  //   );
+  // }
 
   return (
     <Modal transparent={true} visible={visible} animationType="fade">
-      <View style={styles.modalOverlay}>
+      {/* <View style={styles.modalOverlay}>
         <View style={styles.modalContent}>
           <CameraView
             barcodeScannerSettings={{ barcodeTypes: ["qr"] }}
@@ -58,7 +58,7 @@ const QRScannerModal = ({ onClose, onScanned, visible }) => {
             </View>
           </CameraView>
         </View>
-      </View>
+      </View> */}
     </Modal>
   );
 };

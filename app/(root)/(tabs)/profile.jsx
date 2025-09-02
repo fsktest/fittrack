@@ -42,7 +42,6 @@ const profile = () => {
     },
   ];
 
-
   const challenges = [
     {
       title: "7-Day Push-up Challenge",
@@ -93,7 +92,7 @@ const profile = () => {
   };
 
   return (
-    <SafeAreaView className="px-4 bg-bgPrimary">
+    <SafeAreaView className="px-4 bg-bgPrimary flex-1">
       {/* Profile Image and some Icon  */}
       <ScrollView
         contentContainerStyle={{
